@@ -1,1 +1,2 @@
-# movies-explorer-api
+# movies-explorer-api  
+diploma project
