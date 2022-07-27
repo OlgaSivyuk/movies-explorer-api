@@ -4,18 +4,18 @@ const { celebrate, Joi } = require('celebrate');
 const {
   getUserMe,
   updateProfile,
-  // createUser,
+  createUser,
 } = require('../controllers/users');
 
 router.get('/me', getUserMe);
 
-// router.post('/', celebrate({
-//   body: Joi.object().keys({
-//     email: Joi.string().required().email(),
-//     password: Joi.string().required(),
-//     name: Joi.string().min(2).max(30),
-//   }),
-// }), createUser);
+router.post('/', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email(),
+    password: Joi.string().required(),
+    name: Joi.string().min(2).max(30),
+  }),
+}), createUser);
 
 router.patch(
   '/me',
