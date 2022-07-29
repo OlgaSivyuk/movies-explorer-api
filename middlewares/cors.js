@@ -1,8 +1,8 @@
 const allowedCors = [
-  // 'https://mesto.project.olgasivyuk.nomoredomains.xyz',
-  // 'http://mesto.project.olgasivyuk.nomoredomains.xyz',
-  // 'http://api.mesto.olgasivyuk.nomoredomains.xyz',
-  // 'https://api.mesto.olgasivyuk.nomoredomains.xyz',
+  'https://movies-sivyuko.nomoredomains.xyz',
+  'http://movies-sivyuko.nomoredomains.xyz',
+  'http://api.movies-sivyuko.nomoredomains.xyz',
+  'https://api.movies-sivyuko.nomoredomains.xyz',
   // 'localhost:3000'
 ];
 
