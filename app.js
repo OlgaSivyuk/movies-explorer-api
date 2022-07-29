@@ -1,6 +1,6 @@
-// require('dotenv').config(); // ПР15
+require('dotenv').config();
 
-// console.log(process.env.NODE_ENV); // production
+console.log(process.env.NODE_ENV);
 
 const express = require('express');
 const mongoose = require('mongoose');
