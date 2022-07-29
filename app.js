@@ -8,19 +8,19 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const { errorsHandler, notFound } = require('./middlewares/errorsHandler');
-const allRoutes = require('./routes/all-routes');
+const allRoutes = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
+mongoose.connect('mongodb://localhost:27017/moviesdb');
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(requestLogger); // подключаем логгер запросов
+app.use(requestLogger);
 app.use(require('./middlewares/cors')); // подключаем cors
 
 app.use(allRoutes);
