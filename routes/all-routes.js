@@ -3,7 +3,6 @@ const { celebrate, Joi } = require('celebrate');
 const { createUser, login } = require('../controllers/users');
 const auth = require('../middlewares/auth');
 
-// пути для логина и регистрации
 router.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),

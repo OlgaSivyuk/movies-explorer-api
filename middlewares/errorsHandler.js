@@ -9,7 +9,7 @@ const errorsHandler = (err, req, res, next) => {
   }
   console.error(err.stack);
   res.status(500).send({ message: 'Ошибка на сервере' });
-  next(); // вызываем next чтобы линтер не ругался на неиспользуемый параметр
+  next();
 };
 
 const notFound = (req, res, next) => {
