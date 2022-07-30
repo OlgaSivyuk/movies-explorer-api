@@ -16,7 +16,7 @@ const NotFoundError = require('../errors/not-found-error'); // 404
 const ConflictError = require('../errors/conflict-error'); // 409
 
 module.exports.createUser = (req, res, next) => {
-  console.log('проверка', req.body);
+  // console.log('проверка', req.body);
   const {
     name,
     email,
@@ -25,22 +25,21 @@ module.exports.createUser = (req, res, next) => {
 
   bcrypt.hash(password, SALT_ROUNDS)
     .then((hash) => {
-      console.log(hash);
-      return User.create({
+      User.create({
         name,
         email,
         password: hash,
       });
     })
     .then((user) => {
-      console.log("user", user);
+      // console.log("user", user);
       res.status(CREATED_CODE).send({
         name: user.name,
         email: user.email,
       });
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       if (err.name === 'ValidationError') {
         next(new BadReqError('Переданы некорректные данные для создания пользователя.'));
         return;
@@ -54,7 +53,7 @@ module.exports.createUser = (req, res, next) => {
 };
 
 module.exports.login = (req, res, next) => {
-  console.log('проверка логина', req.body);
+  // console.log('проверка логина', req.body);
   const { email, password } = req.body;
   User.findOne({ email }).select('+password')
     .then((user) => {
@@ -67,7 +66,7 @@ module.exports.login = (req, res, next) => {
             throw new AuthorizationError('Неправильные email или пароль (проверка хеша).');
           }
           const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-          console.log('проверка токена', token);
+          // console.log('проверка токена', token);
           res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true });
           res.status(OK_CODE).send({ _id: user._id, email: user.email });
         })
@@ -77,7 +76,7 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.getUserMe = (req, res, next) => {
-  console.log('проверка юзера', req.body);
+  // console.log('проверка юзера', req.body);
   User.findOne({ _id: req.user._id })
     .then((user) => {
       if (user === null) {
@@ -96,7 +95,7 @@ module.exports.getUserMe = (req, res, next) => {
 };
 
 module.exports.updateProfile = (req, res, next) => {
-  console.log('проверка обновления', req.body);
+  // console.log('проверка обновления', req.body);
   const { name, email } = req.body;
 
   User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })

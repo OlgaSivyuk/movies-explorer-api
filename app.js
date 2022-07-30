@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-console.log(process.env.NODE_ENV);
+// console.log(process.env.NODE_ENV);
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -30,6 +30,8 @@ app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors());
 app.use(errorsHandler);
 
-app.listen(PORT, () => {
-  console.log('App started and listen port', PORT);
-});
+app.listen(PORT);
+
+// app.listen(PORT, () => {
+//   console.log('App started and listen port', PORT);
+// });
