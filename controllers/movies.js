@@ -15,7 +15,7 @@ module.exports.createMovie = (req, res, next) => {
     country, director, duration,
     year, description,
     nameRU, nameEN, movieId,
-    image, trailer, thumbnail,
+    image, trailerLink, thumbnail,
   } = req.body;
   Movie.create({
     country,
@@ -24,7 +24,7 @@ module.exports.createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     thumbnail,
@@ -35,7 +35,8 @@ module.exports.createMovie = (req, res, next) => {
       .send({ data: movie }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadReqError('Переданы некорректные данные для создания фильма.'));
+        // next(new BadReqError('Переданы некорректные данные для создания фильма.'));
+        next(new BadReqError(`${Object.values(err.errors).map((error) => error.message).join(', ')}`));
         return;
       }
       next(err);
