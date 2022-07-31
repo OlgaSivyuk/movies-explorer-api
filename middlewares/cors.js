@@ -3,17 +3,14 @@ const allowedCors = [
   'http://movies-sivyuko.nomoredomains.xyz',
   'http://api.movies-sivyuko.nomoredomains.xyz',
   'https://api.movies-sivyuko.nomoredomains.xyz',
-  // 'localhost:3000'
 ];
 
 module.exports = ((req, res, next) => {
   const { origin } = req.headers;
   const { method } = req;
 
-  // Значение для заголовка Access-Control-Allow-Methods по умолчанию (разрешены все типы запросов)
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
-  // сохраняем список заголовков исходного запроса
   const requestHeaders = req.headers['access-control-request-headers'];
   res.header('X-Server', 'test');
   if (allowedCors.includes(origin)) {

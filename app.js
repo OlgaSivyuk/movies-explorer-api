@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-// console.log(process.env.NODE_ENV);
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -21,17 +19,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger);
-app.use(require('./middlewares/cors')); // подключаем cors
+app.use(require('./middlewares/cors'));
 
 app.use(allRoutes);
 
 app.use(notFound);
-app.use(errorLogger); // подключаем логгер ошибок
+app.use(errorLogger);
 app.use(errors());
 app.use(errorsHandler);
 
-app.listen(PORT);
-
-// app.listen(PORT, () => {
-//   console.log('App started and listen port', PORT);
-// });
+app.listen(PORT, () => {
+  console.log('App started and listen port', PORT);
+});
