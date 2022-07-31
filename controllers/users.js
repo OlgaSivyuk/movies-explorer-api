@@ -6,7 +6,6 @@ const SALT_ROUNDS = 10;
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const {
-  OK_CODE,
   CREATED_CODE,
 } = require('../constants/statusCode');
 
@@ -64,7 +63,7 @@ module.exports.login = (req, res, next) => {
           }
           const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
           res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true });
-          res.status(OK_CODE).send({ _id: user._id, email: user.email });
+          res.send({ _id: user._id, email: user.email });
         })
         .catch(next);
     })
@@ -77,11 +76,10 @@ module.exports.getUserMe = (req, res, next) => {
       if (user === null) {
         next(new NotFoundError('Пользователь по указанному id не найден.'));
       }
-      return res.status(OK_CODE)
-        .send({ data: user });
+      return res.send({ data: user });
     })
     .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
+      if (err.name === 'ValidationError') {
         next(new BadReqError('Переданы некорректные данные для запроса пользователя (куки).'));
         return;
       }
@@ -97,7 +95,7 @@ module.exports.updateProfile = (req, res, next) => {
       throw new NotFoundError('Пользователь с таким id не найден.');
     })
     .then((users) => {
-      res.status(OK_CODE).send({ data: users });
+      res.send({ data: users });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
