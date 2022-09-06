@@ -3,6 +3,7 @@ const allowedCors = [
   'http://movies-sivyuko.nomoredomains.xyz',
   'http://api.movies-sivyuko.nomoredomains.xyz',
   'https://api.movies-sivyuko.nomoredomains.xyz',
+  'localhost:3000',
 ];
 
 module.exports = ((req, res, next) => {
