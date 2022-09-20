@@ -6,9 +6,12 @@ const {
   createMovie,
   getMovies,
   deleteMovie,
+  getMovieIds,
 } = require('../controllers/movies');
 
 router.get('/', getMovies);
+
+router.get('/getmovieids', getMovieIds);
 
 router.post(
   '/',
@@ -22,7 +25,7 @@ router.post(
       image: Joi.string().required().pattern(regexUrl),
       trailerLink: Joi.string().required().pattern(regexUrl),
       thumbnail: Joi.string().required().pattern(regexUrl),
-      movieId: Joi.number().required(),
+      id: Joi.number().required(),
       nameRU: Joi.string().required(),
       nameEN: Joi.string().required(),
       owner: Joi.string().hex().length(24),
@@ -32,10 +35,10 @@ router.post(
 );
 
 router.delete(
-  '/:_id',
+  '/:id',
   celebrate({
     params: Joi.object().keys({
-      _id: Joi.string().length(24).hex().required(),
+      id: Joi.number().required(),
     }),
   }),
   deleteMovie,
